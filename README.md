@@ -234,23 +234,12 @@ The application will start on **`http://localhost:5000`**
 #### **1️⃣ Device Selection (Landing Page)**
 
 <div align="center">
-
-```
-┌─────────────────────────────────────┐
-│   🎓 Face Recognition System        │
-│                                      │
-│   Select Processing Device:          │
-│                                      │
-│   ┌──────────┐   ┌──────────┐      │
-│   │ 💻 CPU   │   │ 🎮 GPU    │      │
-│   │          │   │ (RTX 3050)│      │
-│   └──────────┘   └──────────┘      │
-│                                      │
-│         [Initialize System]          │
-└─────────────────────────────────────┘
-```
-
+  <img src="assets/landing_page.png" alt="Device Selection Landing Page" width="800"/>
+  <br>
+  <em>Modern glassmorphism UI with CPU/GPU device selection</em>
 </div>
+
+<br>
 
 - **First visit:** Choose between CPU or GPU processing
 - **System initializes** models and loads enrolled faces
@@ -258,24 +247,32 @@ The application will start on **`http://localhost:5000`**
 
 #### **2️⃣ Main Dashboard**
 
+<div align="center">
+  <img src="assets/dashboard.png.png" alt="Main Dashboard Interface" width="900"/>
+  <br>
+  <em>Real-time video feed with enrollment & attendance controls</em>
+</div>
+
+<br>
+
 <table>
 <tr>
 <td width="60%">
 
 **🎥 Live Video Feed**
 
-- Real-time camera stream
-- Face detection overlays
+- Real-time camera stream with MJPEG streaming
+- Face detection overlays with bounding boxes
 - Green boxes for recognized students
 - Red boxes for unknown faces
-- Live status indicators
+- Live status indicators and similarity scores
 
 **📊 Live Attendance List**
 
 - Real-time updates as students are recognized
 - Shows: Name, ID, Time, Status
-- Color-coded badges
-- Session tracking
+- Color-coded badges (green for present)
+- Session tracking with duplicate prevention
 
 </td>
 <td width="40%">
@@ -284,19 +281,19 @@ The application will start on **`http://localhost:5000`**
 
 **Enrollment Mode:**
 
-- Enter student name
-- Enter ID number
-- Click "Start Enrollment"
+- Enter student name and registration ID
+- Click "Start Enrollment" button
 - Follow on-screen pose instructions
-- 20 samples captured automatically
+- 20 samples captured automatically across 5 poses
+- Real-time progress feedback
 
 **Attendance Mode:**
 
-- Click "Start Attendance"
-- System recognizes all faces
-- Automatic CSV logging
-- Duplicate prevention
-- Download attendance report
+- Click "Start Attendance" to begin recognition
+- System recognizes all faces simultaneously
+- Automatic CSV logging with timestamps
+- Duplicate prevention (one per day)
+- Download attendance CSV report
 
 </td>
 </tr>
@@ -1113,7 +1110,7 @@ This project is developed as an **academic project** for educational purposes.
 </tr>
 <tr>
 <td align="center">
-<img src="https://flask.palletsprojects.com/en/2.3.x/_images/flask-logo.png" width="80"/>
+<img width="96" height="96" src="https://img.icons8.com/nolan/96/flask.png" alt="flask"/>
 <br><b>🌐 Web Framework</b>
 <br><sub>Flask</sub>
 <br><sub>Python Web Server</sub>
@@ -1125,7 +1122,7 @@ This project is developed as an **academic project** for educational purposes.
 <br><sub>Python Ecosystem</sub>
 </td>
 <td align="center">
-<img src="https://img.icons8.com/fluency/96/000000/neural-network.png" width="60"/>
+<img width="48" height="48" src="https://img.icons8.com/pulsar-gradient/48/artificial-intelligence.png" alt="artificial-intelligence"/>
 <br><b>🧠 Pre-trained Models</b>
 <br><sub>FaceNet & MTCNN</sub>
 <br><sub>VGGFace2 Dataset</sub>
