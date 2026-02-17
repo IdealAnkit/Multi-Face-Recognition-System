@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup - Face Recognition System</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #f1f5f9;
+    }
+
+    .container {
+      background: rgba(30, 41, 59, 0.7);
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+      backdrop-filter: blur(20px);
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    p {
+      color: #94a3b8;
+      margin-bottom: 40px;
+    }
+
+    .mode-select {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .mode-card {
+      background: rgba(15, 23, 42, 0.5);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 25px 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .mode-card:hover {
+      border-color: #3f8efc;
+      transform: translateY(-5px);
+      background: rgba(63, 142, 252, 0.1);
+    }
+
+    .mode-card.selected {
+      border-color: #3f8efc;
+      background-color: rgba(63, 142, 252, 0.2);
+      box-shadow: 0 0 15px rgba(63, 142, 252, 0.3);
+    }
+
+    .icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: block;
+      color: #3f8efc;
+    }
+
+    .title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .desc {
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    button {
+      margin-top: 40px;
+      background-color: #3f8efc;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(63, 142, 252, 0.4);
+    }
+
+    button:hover:not(:disabled) {
+      background-color: #2b7ce9;
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      background-color: #334155;
+      color: #64748b;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .loader {
+      display: none;
+      margin-top: 25px;
+      color: #3f8efc;
+      font-weight: 500;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>System Setup</h1>
+    <p>Select your processing device to initialize the system.</p>
+
+    <div class="mode-select">
+      <div class="mode-card" onclick="selectDevice('cpu')" id="card-cpu">
+        <span class="icon">💻</span>
+        <span class="title">CPU Mode</span>
+        <div class="desc">Standard processing. Works on all computers.</div>
+      </div>
+
+      <div class="mode-card" onclick="selectDevice('cuda')" id="card-cuda">
+        <span class="icon">🚀</span>
+        <span class="title">GPU Mode</span>
+        <div class="desc">NVIDIA CUDA required. Faster for real-time.</div>
+      </div>
+    </div>
+
+    <button id="start-btn" onclick="startSystem()" disabled>Select Device</button>
+
+    <div class="loader" id="loader">Initializing models... Please wait...</div>
+  </div>
+
+  <script>
+    let selectedDevice = null;
+
+    function selectDevice(device) {
+      selectedDevice = device;
+      document.querySelectorAll('.mode-card').forEach(el => el.classList.remove('selected'));
+      document.getElementById('card-' + device).classList.add('selected');
+
+      const btn = document.getElementById('start-btn');
+      btn.disabled = false;
+      btn.textContent = `Start with ${device.toUpperCase()}`;
+    }
+
+    function startSystem() {
+      if (!selectedDevice) return;
+
+      const btn = document.getElementById('start-btn');
+      const loader = document.getElementById('loader');
+
+      btn.style.display = 'none';
+      loader.style.display = 'block';
+
+      fetch('/init', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ device: selectedDevice })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === 'success') {
+            window.location.href = '/dashboard';
+          } else {
+            alert('Error: ' + data.message);
+            btn.style.display = 'block';
+            loader.style.display = 'none';
+          }
+        })
+        .catch(err => {
+          alert("Connection failed");
+          btn.style.display = 'block';
+          loader.style.display = 'none';
+        });
+    }
+  </script>
+</body>
+
+</html>

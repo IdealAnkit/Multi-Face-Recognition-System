@@ -1,0 +1,63 @@
+# Python virtual environment
+venv/
+env/
+ENV/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
+
+# Data files (personal/sensitive)
+data/enrolled_people/
+data/attendance.csv
+
+# Keep the data folder structure but ignore contents
+!data/enrolled_people/.gitkeep
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.bak
+
+# Model files (if any large model downloads)
+*.pth
+*.pt
+*.onnx
+*.pkl
+*.h5
+
+# Log files
+*.log
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Attendance System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <i class="fas fa-robot logo-icon"></i>
+                <div>
+                    <h1>Smart Attendance AI</h1>
+                    <p>Advanced Multi-Face Recognition System</p>
+                </div>
+            </div>
+            <div class="header-controls">
+                <button class="btn btn-sm btn-outline" onclick="location.href='/'"><i class="fas fa-cog"></i> Change
+                    Device</button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Left Panel: Video Feed -->
+            <div class="video-section">
+                <div class="video-container">
+                    <img src="{{ url_for('video_feed') }}" alt="Video Feed">
+                    <div class="overlay-scanline"></div>
+                    <div class="overlay-status" id="status-overlay">System Ready</div>
+                    <div class="live-indicator"><i class="fas fa-circle"></i> LIVE</div>
+                </div>
+
+                <!-- Live List (Moved here) -->
+                <div class="card live-list-card">
+                    <h3>
+                        <span><i class="fas fa-users"></i> Live Feed</span>
+                        <span class="badge" id="count-badge">0</span>
+                    </h3>
+                    <ul id="attendance-list">
+                        <li class="empty-state">
+                            <i class="fas fa-hourglass-start"></i>
+                            <p>Waiting for attendance data...</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Panel: Controls -->
+            <div class="control-panel">
+
+                <!-- Enrollment Card -->
+                <div class="card enrollment-card">
+                    <h3><i class="fas fa-user-plus"></i> New Enrollment</h3>
+                    <div class="form-group">
+                        <div class="input-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="enroll-name" placeholder="Full Name" required>
+                        </div>
+                        <div class="input-icon">
+                            <i class="fas fa-id-card"></i>
+                            <input type="text" id="enroll-id" placeholder="ID Number" required>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-primary" id="btn-enroll-start" onclick="startEnrollment()">
+                            <i class="fas fa-play"></i> Start Enrollment
+                        </button>
+                        <button class="btn btn-danger" id="btn-enroll-cancel" onclick="stopSystem()" disabled>
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Attendance Card -->
+                <div class="card attendance-card">
+                    <h3><i class="fas fa-clipboard-check"></i> Attendance Mode</h3>
+                    <div class="button-group">
+                        <button class="btn btn-success" id="btn-attend-start" onclick="startAttendance()">
+                            <i class="fas fa-camera"></i> Start Marking
+                        </button>
+                        <button class="btn btn-danger" id="btn-attend-stop" onclick="stopSystem()" disabled>
+                            <i class="fas fa-stop"></i> Stop Camera
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Data Card -->
+                <div class="card actions-card">
+                    <h3><i class="fas fa-database"></i> Data Center</h3>
+                    <div class="button-group vertical">
+                        <button class="btn btn-outline" onclick="downloadCSV()">
+                            <i class="fas fa-file-csv"></i> Download Full History
+                        </button>
+                        <button class="btn btn-outline-success" onclick="downloadSessionCSV()">
+                            <i class="fas fa-file-export"></i> Download This Session
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
